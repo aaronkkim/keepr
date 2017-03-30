@@ -43,6 +43,7 @@ function API(model, schema) {
   }
 
   function create(req, res, next) {
+    console.log(req)
     var action = actions.create
 
     let model = new schema(req.body)
