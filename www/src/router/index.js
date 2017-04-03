@@ -8,6 +8,7 @@ import Keep from '@/components/Keep'
 import EditKeep from '@/components/EditKeep'
 import NewKeep from '@/components/NewKeep'
 import KeepList from '@/components/KeepList'
+import KeepToVaultForm from '@/components/KeepToVaultForm'
 Vue.use(Router)
 
 export default new Router({
@@ -39,11 +40,18 @@ export default new Router({
       path:'keep/',
       name:'Keep',
       component:Keep,
-      children:[
-       { path:'edit',name:'keep.edit', component: EditKeep }, 
-        {path:'/',name:"keeplist", component:KeepList}
-      ]
+     
+    },
+    {
+      path:'/keepToVault',
+      name:'keep.add',
+      component:KeepToVaultForm
     }
+    // {
+    //   path:'new/keep',
+    //   name:keep.new,
+    //   component:NewKeep
+    // }
  
   ]
 })

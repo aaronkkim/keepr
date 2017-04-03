@@ -35,7 +35,10 @@ export default {
                 }
                 sendFunc(this.keep)
                 .then(res=>{
-                    let keep =res.data.data 
+                    console.log('keep or vault???  ',  res)
+                    let vault =res.data.data 
+
+                    this.$root.$data.store.actions.getVaultKeeps(vault._id)
                     this.redirect()
                 }).catch(console.error)
                 

@@ -20,8 +20,8 @@
      
        <div class="row">
         <div v-for="vault in vaults">
-        <div class="col s12 m4">
-          <div class="card small">
+        <div class="col s10 offset-s1 ">
+          <div class="card ">
             <div class="card-image">
               <img :src="vault.imageUrl" alt ="">
               <span class="card-title"></span>

@@ -6,7 +6,7 @@ let Users = require('../models/user')
 
 export default {
 
-    keepToVault: {
+    newKeepToVault: {
         path: '/new/keeps',
         reqType: 'post',
         method(req, res, next) {
@@ -32,7 +32,28 @@ export default {
                 })
         }
 
+    },
+    keepToVault:{
+        path: '/vault/:id/keep',
+        reqType: 'put',
+         method(req, res, next) {
+             let action ="post to vault"
+           Vaults.findById(req.params.id)
+                            .then(vault => {
+                            let keep = req.body.keepId
+                            debugger
+                                vault.keeps.push(keep)
+                                vault.save()
+                                console.log(vault)
+                                res.send(handleResponse(action, vault))
+                            })
+
+                            .catch(error => {
+                                return next(handleResponse(action, null, error))
+                            })
+         }
     }
+
 }
 
 function handleResponse(action, data, error) {

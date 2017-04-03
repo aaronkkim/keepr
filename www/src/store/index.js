@@ -67,7 +67,7 @@ let state = {
 	vaults: [],
 	userVaults: [],
 	activeVault: {},
-	keep: {}
+	activeKeep: {}
 }
 
 let handleError = (err) => {
@@ -151,8 +151,9 @@ export default {
 		getVaultKeeps(id) {
 			api(`vault/${id}/keeps`)
 				.then(res => {
-					console.log('keeps on the vault ', res.data.data.keeps)
-					state.keeps = res.data.data
+					state.keeps = res.data.data.keeps
+					console.log('what is state.keeps ', state.keeps)
+
 
 					// console.log(state.lists)
 				})
@@ -180,13 +181,24 @@ export default {
 		editKeep(keep) {
 			return api.put('keeps/' + keep._id)
 		},
-		removeKeep(list, index) {
+		deleteKeep(keep, index) {
 			api.delete('keeps/' + keep._id)
 				.then(res => {
-					store.state.keeps.splice(index, 1)
-					this.getVaultKeepss(vault._id)
+					state.keeps.splice(index, 1)
+					this.getVaultKeeps(keep.vaultId)
 				})
 				.catch(handleError)
+		},
+		addToVault(id){
+			console.log(id.vaultId, id.keepId)
+			api.put('vault/'+id.vaultId+'/keep', {keepId:id.keepId})
+			.then(res=>{
+				this.getVault(id.vaultId)
+			})
+			.catch(handleError)
+		},
+		activeKeep(keep){
+			state.activeKeep = keep
 		}
 
 	}
